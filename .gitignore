@@ -33,3 +33,4 @@ bld/
 /TechChallenger_Gp23/src/PublicApi/obj/project.nuget.cache
 /TechChallenger_Gp23/src/PublicApi/obj/PublicApi.csproj.nuget.dgspec.json
 /TechChallenger_Gp23/src/PublicApi/obj/PublicApi.csproj.nuget.g.props
+/TechChallenger_Gp23/src/PublicApi/obj/Debug/net7.0/PublicApi.AssemblyInfo.cs
