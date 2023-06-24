@@ -1,0 +1,35 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+[Xx]64/
+[Xx]86/
+[Bb]uild/
+bld/
+[Bb]in/
+[Oo]bj/
+
+.vs/
+
+/TechChallenger_Gp23/src/PublicApi/obj/Debug/net7.0/PublicApi.assets.cache
+/TechChallenger_Gp23/src/PublicApi/obj/Debug/net7.0/PublicApi.GeneratedMSBuildEditorConfig.editorconfig
+/TechChallenger_Gp23/src/PublicApi/obj/Debug/net7.0/PublicApi.csproj.AssemblyReference.cache
+/TechChallenger_Gp23/src/PublicApi/obj/project.assets.json
+/TechChallenger_Gp23/src/PublicApi/obj/project.nuget.cache
+/TechChallenger_Gp23/src/PublicApi/obj/PublicApi.csproj.nuget.dgspec.json
+/TechChallenger_Gp23/src/PublicApi/obj/PublicApi.csproj.nuget.g.props
