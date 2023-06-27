@@ -14,12 +14,16 @@ namespace WebBlazor.Services
         {
             _httpClient = httpClient;
             _arquivoService = arquivoService;
-            _apiUrl = baseUrlConfiguration.Value.ApiBase;
+            //_apiUrl = baseUrlConfiguration.Value.ApiBase;
+            _apiUrl = "https://localhost:7032/";
         }
 
         public async Task<T> HttpGet<T>(string uri)
             where T : class
         {
+            //_apiUrl = "https://localhost:7032/";
+            uri = "Imagem/ConsultaImagens";
+
             var result = await _httpClient.GetAsync($"{_apiUrl}{uri}");
             if (!result.IsSuccessStatusCode)
             {

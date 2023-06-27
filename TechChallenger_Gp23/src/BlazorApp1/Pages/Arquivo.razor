@@ -1,0 +1,81 @@
+﻿@page "/arquivo"
+@using WebBlazor.Services;
+@inject HttpClient Http
+@*@inject ArquivoService _arquivoService
+*@
+<PageTitle>Lista de Arquivos</PageTitle>
+
+<h1>Arquivos</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <br />
+@*        <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Img</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var arquivo in arquivos)
+            {
+                <tr>
+                    <td>@arquivo.Nome</td>
+                    <td>@arquivo.URL</td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+}
+
+@code {
+    private WeatherForecast[]? forecasts;
+    private IEnumerable<WebBlazor.Models.Arquivo> arquivos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        //arquivos = await _arquivoService.GetImagensAsync();
+    }
+
+    public class WeatherForecast
+    {
+        public DateOnly Date { get; set; }
+
+        public int TemperatureC { get; set; }
+
+        public string? Summary { get; set; }
+
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}
