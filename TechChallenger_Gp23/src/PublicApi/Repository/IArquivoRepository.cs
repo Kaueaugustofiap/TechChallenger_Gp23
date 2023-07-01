@@ -4,8 +4,6 @@ namespace PublicApi.Repository
 {
     public interface IArquivoRepository
     {
-        public IEnumerable<Arquivo> ConsultaArquivo();
-
-        public Arquivo ConsultaArquivo(string url);
+        public IEnumerable<Arquivo> ListarArquivos();
     }
 }

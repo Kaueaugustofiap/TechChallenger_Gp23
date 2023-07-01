@@ -38,7 +38,7 @@ namespace PublicApi.Controllers
         [HttpGet("ConsultaImagens")]
         public IEnumerable<Arquivo> ConsultaImagens()
         {
-            return _repository.ConsultaArquivo().ToArray();
+            return _repository.ListarArquivos().ToArray();
         }
 
 

@@ -1,23 +1,35 @@
 ﻿
+using System.Net.Http.Json;
 using WebBlazor.Models;
 
 namespace WebBlazor.Services
 {
-    public class ArquivoService
+    public class ArquivoService: IArquivoService
     {
-        private readonly HttpService _httpService;
-        private readonly ILogger<ArquivoService> _logger;
+        private readonly HttpClient httpClient;
 
-        public ArquivoService(HttpService httpService, ILogger<ArquivoService> logger)
+        public ArquivoService(HttpClient _httpClient)
         {
-            _httpService = httpService;
-            _logger = logger;
+            this.httpClient = _httpClient;
         }
 
         public async Task<IEnumerable<Arquivo>> GetImagensAsync()
         {
-            var listArquivos = await _httpService.HttpGet<IEnumerable<Arquivo>>($"ConsultaImagens");
-            return listArquivos;
+            try
+            {
+                var response = await httpClient.GetAsync("Imagem/ConsultaImagens");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var arquivos = await response.Content.ReadFromJsonAsync<IEnumerable<Arquivo>>();
+                    return arquivos;
+                }
+                return new List<Arquivo>();
+            }
+            catch (Exception ex)
+            {
+               throw;
+            }
         }
     }
 }
