@@ -41,11 +41,10 @@ namespace PublicApi.Controllers
             return _repository.ListarArquivos().ToArray();
         }
 
-
-        [HttpPost("Upload")]
-        public void UploadImagens()
+        [HttpPost("UploadImagem")]
+        public string UploadImagens(string base64Image, string container)
         {
-           //return string.Empty
+            return _repository.UploadImagens(base64Image, container);
         }
     }
 }

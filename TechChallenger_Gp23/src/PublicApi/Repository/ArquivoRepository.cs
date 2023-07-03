@@ -1,7 +1,9 @@
-﻿using Dapper;
+﻿using Azure.Storage.Blobs;
+using Dapper;
 using Microsoft.Extensions.Configuration;
 using PublicApi.Model;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace PublicApi.Repository
 {
@@ -35,6 +37,35 @@ namespace PublicApi.Repository
                 //arquivos.Add(new Arquivo() { Id = 4, Nome = "Teste", URL = "~/techChallengeIcon.png" });
 
                 return arquivos;
+            }
+        }
+
+        public string UploadImagens(string base64Image, string container)
+        {
+            var connection = this.GetConnection();
+
+            using (var cn = new SqlConnection(connection))
+            {
+                // Gera um nome randomico para imagem
+                var fileName = Guid.NewGuid().ToString() + ".jpg";
+
+                // Limpa o hash enviado
+                var data = new Regex(@"^data:image\/[a-z]+;base64,").Replace(base64Image, "");
+
+                // Gera um array de Bytes
+                byte[] imageBytes = Convert.FromBase64String(data);
+
+                // Define o BLOB no qual a imagem será armazenada
+                var blobClient = new BlobClient(connection, container, fileName);
+
+                // Envia a imagem
+                using (var stream = new MemoryStream(imageBytes))
+                {
+                    blobClient.Upload(stream);
+                }
+
+                // Retorna a URL da imagem
+                return blobClient.Uri.AbsoluteUri;
             }
         }
     }
