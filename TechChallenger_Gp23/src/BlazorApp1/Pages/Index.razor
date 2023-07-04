@@ -1,11 +1,94 @@
 ﻿@page "/"
+@using WebBlazor.Services;
+@inject IArquivoService _arquivoService
 
-<PageTitle>TechChallenge - Fase 1</PageTitle>
+<PageTitle>TechChallenge</PageTitle>
 
 <div id="divPrincipal">
-    <h1>TechChallenge - Fase 1</h1>
-    @*<img src="~/techChallengeIcon.png" />*@
+    <h1>TechChallenge</h1>
+    <img src="~/techChallengeIcon.png" />
 </div>
+
+<h1>Arquivos</h1>
+
+<InputFile OnChange="@LoadFiles" multiple />
+<button class="btn btn-primary" @onclick="Upload">Upload</button>
+
+@if (arquivos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Img</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var arquivo in arquivos)
+            {
+                <tr>
+                    <td>@arquivo.Nome</td>
+                    <td><img src="@arquivo.URL" width="80" height="90" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+@code {
+
+    private List<WebBlazor.Models.Arquivo> arquivos { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        arquivos = (await _arquivoService.GetImagensAsync()).ToList();
+    }
+
+    private List<IBrowserFile> loadedFiles = new();
+    private long maxFileSize = 1024 * 15;
+    private int maxAllowedFiles = 3;
+    private bool isLoading;
+
+    private void LoadFiles(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                loadedFiles.Add(file);
+
+                var trustedFileNameForFileStorage = Path.GetRandomFileName();
+                //var path = Path.Combine(Environment.ContentRootPath,
+                //        Environment.EnvironmentName, "unsafe_uploads",
+                //        trustedFileNameForFileStorage);
+
+                //using FileStream fs = new(path, FileMode.Create);
+                //file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+            }
+            catch (Exception ex)
+            {
+              
+            }
+        }
+
+        isLoading = false;
+
+    }
+
+    private void Upload()
+    {
+
+    }
+}
+
 
 @*Welcome to your new app.*@
 

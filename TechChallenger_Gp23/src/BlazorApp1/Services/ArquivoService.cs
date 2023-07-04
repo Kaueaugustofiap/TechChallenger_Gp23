@@ -31,5 +31,21 @@ namespace WebBlazor.Services
                throw;
             }
         }
+
+        public async Task<string> Upload()
+        {
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return "";
+        }
+
     }
 }
