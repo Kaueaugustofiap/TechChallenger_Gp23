@@ -49,37 +49,49 @@ else
         arquivos = (await _arquivoService.GetImagensAsync()).ToList();
     }
 
-    private List<IBrowserFile> loadedFiles = new();
-    private long maxFileSize = 1024 * 15;
-    private int maxAllowedFiles = 3;
-    private bool isLoading;
+    //private List<IBrowserFile> loadedFiles = new();
+    //private long maxFileSize = 1024 * 15;
+    //private int maxAllowedFiles = 3;
+    //private bool isLoading;
 
-    private void LoadFiles(InputFileChangeEventArgs e)
+    private async void LoadFiles(InputFileChangeEventArgs e)
     {
-        isLoading = true;
-        loadedFiles.Clear();
+        var file = e.File;
 
-        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
-        {
-            try
-            {
-                loadedFiles.Add(file);
+        IBrowserFile imgFile = e.File;
+        var buffers = new byte[imgFile.Size];
+        await imgFile.OpenReadStream().ReadAsync(buffers);
+        string imageType = imgFile.ContentType;
+        var imgUrl = $"data:{imageType};base64,{Convert.ToBase64String(buffers)}";
 
-                var trustedFileNameForFileStorage = Path.GetRandomFileName();
-                //var path = Path.Combine(Environment.ContentRootPath,
-                //        Environment.EnvironmentName, "unsafe_uploads",
-                //        trustedFileNameForFileStorage);
 
-                //using FileStream fs = new(path, FileMode.Create);
-                //file.OpenReadStream(maxFileSize).CopyToAsync(fs);
-            }
-            catch (Exception ex)
-            {
+        await _arquivoService.Upload(imgUrl);
+
+
+        //isLoading = true;
+        //loadedFiles.Clear();
+
+        //foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        //{
+        //    try
+        //    {
+        //        loadedFiles.Add(file);
+
+        //        var trustedFileNameForFileStorage = Path.GetRandomFileName();
+        //        //var path = Path.Combine(Environment.ContentRootPath,
+        //        //        Environment.EnvironmentName, "unsafe_uploads",
+        //        //        trustedFileNameForFileStorage);
+
+        //        //using FileStream fs = new(path, FileMode.Create);
+        //        //file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+        //    }
+        //    catch (Exception ex)
+        //    {
               
-            }
-        }
+        //    }
+        //}
 
-        isLoading = false;
+        //isLoading = false;
 
     }
 

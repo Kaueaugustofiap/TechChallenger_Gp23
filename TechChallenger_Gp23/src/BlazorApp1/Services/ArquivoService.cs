@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Components.Forms;
 using System.Net.Http.Json;
 using WebBlazor.Models;
 
@@ -32,7 +33,7 @@ namespace WebBlazor.Services
             }
         }
 
-        public async Task<string> Upload()
+        public async Task Upload(string arquivo)
         {
             try
             {
@@ -43,8 +44,7 @@ namespace WebBlazor.Services
 
                 throw;
             }
-
-            return "";
+           
         }
 
     }
