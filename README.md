@@ -1,5 +1,5 @@
-# TechChallenger_Gp23
-Projeto Tech Challenge - Pós Estrutura de Sistemas .Net com Azure
+# TechChallenge_Gp23
+Projeto Tech Challenge - Fase 01 - Pós Estrutura de Sistemas .Net com Azure
 
 ## Projeto no Azure
 ### API
