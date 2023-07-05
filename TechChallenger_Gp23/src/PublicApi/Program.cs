@@ -12,6 +12,17 @@ builder.Services.AddScoped<IArquivoRepository, ArquivoRepository>();
 
 builder.Services.AddCors();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "MyAllowSpecificOrigins",
+                      builder =>
+                      {
+                          builder.AllowAnyOrigin();
+                          builder.AllowAnyHeader();
+                          builder.AllowAnyMethod();
+                      });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +38,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseCors(option => option.AllowAnyOrigin());
+//app.UseCors(option => option.AllowAnyOrigin());
+
+app.UseCors("MyAllowSpecificOrigins");
 
 app.Run();

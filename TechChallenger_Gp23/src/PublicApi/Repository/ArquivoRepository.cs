@@ -1,9 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Dapper;
-using Microsoft.Extensions.Configuration;
 using PublicApi.Model;
 using System.Data.SqlClient;
-using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace PublicApi.Repository

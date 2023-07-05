@@ -1,8 +1,5 @@
-﻿
-using Microsoft.AspNetCore.Components.Forms;
-using System.Net;
+﻿using Newtonsoft.Json;
 using System.Net.Http.Json;
-using System.Security.Policy;
 using System.Text;
 using WebBlazor.Models;
 
@@ -41,25 +38,18 @@ namespace WebBlazor.Services
         {
             try
             {
-                // Criar o conteúdo da requisição com o corpo (body) em formato JSON
-                //var content = new StringContent("{\"imagem\": \"" + arquivo + "\"}", Encoding.UTF8, "application/json");
-                var content = new StringContent(arquivo);
+                var content = new StringContent(JsonConvert.SerializeObject(arquivo), Encoding.UTF8, "application/json");
 
-                using (HttpClient client = new HttpClient())
+                HttpResponseMessage response = await httpClient.PostAsync("Imagem/UploadImagem", content);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    // Enviar a solicitação POST
-                    HttpResponseMessage response = await client.PostAsync("Imagem/UploadImagem", content);
-
-                    // Lidar com a resposta
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string responseContent = await response.Content.ReadAsStringAsync();
-                        Console.WriteLine("Resposta do servidor: " + responseContent);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Falha na solicitação. Código de status: " + response.StatusCode);
-                    }
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("Resposta do servidor: " + responseContent);
+                }
+                else
+                {
+                    Console.WriteLine("Falha na solicitação. Código de status: " + response.StatusCode);
                 }
             }
             catch (Exception ex)

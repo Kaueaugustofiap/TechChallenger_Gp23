@@ -21,7 +21,7 @@ namespace PublicApi.Controllers
         }
 
         [HttpPost("UploadImagem")]
-        public string UploadImagens(string base64Image)
+        public string UploadImagens([FromBody]string base64Image)
         {
             return _repository.UploadImagens(base64Image);
         }
