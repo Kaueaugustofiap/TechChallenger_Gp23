@@ -3,9 +3,9 @@ Projeto Tech Challenge - Fase 01 - Pós Estrutura de Sistemas .Net com Azure
 
 ## Projeto no Azure
 ### API
-![Print_API_Publicada](https://github.com/Kaueaugustofiap/TechChallenger_Gp23/assets/61791128/91537d2a-96a0-415b-88d4-3ecbb74327f5)
+![Print_API_Publicada](https://github.com/Kaueaugustofiap/TechChallenger_Gp23/assets/61791128/a10c1155-547a-442d-ac6e-7be654144e30)
 ### Web
-![Print_Web_Publicada](https://github.com/Kaueaugustofiap/TechChallenger_Gp23/assets/61791128/a74bc76f-fc64-4f28-bdde-88429112716d)
+![Print_Web_Publicada](https://github.com/Kaueaugustofiap/TechChallenger_Gp23/assets/61791128/96f06491-408d-484a-b4bd-e81bace33603)
 
 ## Recursos Utilizados
 * Resource Group
